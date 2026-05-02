@@ -1,4 +1,5 @@
 import Habit from "../models/habitModel.js";
+import { calculateStreaks } from "../utils/streakCalculator.js";
 
 // Helper: Check if two dates are the same day
 const isSameDay = (d1, d2) => {
@@ -11,12 +12,20 @@ const isSameDay = (d1, d2) => {
   );
 };
 
-// @desc    Get all habits
+// Helper: Add streak data to habit object
+const addStreakData = (habit) => {
+  const habitObj = habit.toObject ? habit.toObject() : habit;
+  const streaks = calculateStreaks(habitObj.completedDates);
+  return { ...habitObj, ...streaks };
+};
+
+// @desc    Get all habits with streak info
 // @route   GET /api/habits
 export const getHabits = async (req, res, next) => {
   try {
     const habits = await Habit.find().sort({ createdAt: -1 });
-    res.status(200).json(habits);
+    const habitsWithStreaks = habits.map(addStreakData);
+    res.status(200).json(habitsWithStreaks);
   } catch (error) {
     next(error);
   }
@@ -34,7 +43,7 @@ export const createHabit = async (req, res, next) => {
       title: title.trim(),
       description: description?.trim() || "",
     });
-    res.status(201).json(habit);
+    res.status(201).json(addStreakData(habit));
   } catch (error) {
     next(error);
   }
@@ -49,7 +58,7 @@ export const updateHabit = async (req, res, next) => {
       runValidators: true,
     });
     if (!habit) return res.status(404).json({ message: "Habit not found" });
-    res.status(200).json(habit);
+    res.status(200).json(addStreakData(habit));
   } catch (error) {
     next(error);
   }
@@ -80,17 +89,46 @@ export const toggleHabitCompletion = async (req, res, next) => {
     );
 
     if (alreadyCompletedToday) {
-      // Unmark — remove today's date
       habit.completedDates = habit.completedDates.filter(
         (date) => !isSameDay(date, today),
       );
     } else {
-      // Mark — add today's date
       habit.completedDates.push(today);
     }
 
     await habit.save();
-    res.status(200).json(habit);
+    res.status(200).json(addStreakData(habit));
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get overall stats (all habits)
+// @route   GET /api/habits/stats
+export const getStats = async (req, res, next) => {
+  try {
+    const habits = await Habit.find();
+    const habitsWithStreaks = habits.map(addStreakData);
+
+    const totalHabits = habitsWithStreaks.length;
+    const completedToday = habitsWithStreaks.filter((h) =>
+      h.completedDates.some((d) => isSameDay(d, new Date())),
+    ).length;
+    const longestStreakOverall = habitsWithStreaks.reduce(
+      (max, h) => Math.max(max, h.longestStreak || 0),
+      0,
+    );
+    const totalCompletions = habitsWithStreaks.reduce(
+      (sum, h) => sum + (h.completedDates?.length || 0),
+      0,
+    );
+
+    res.status(200).json({
+      totalHabits,
+      completedToday,
+      longestStreakOverall,
+      totalCompletions,
+    });
   } catch (error) {
     next(error);
   }

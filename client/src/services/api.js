@@ -7,9 +7,9 @@ const api = axios.create({
   },
 });
 
-// Habit API endpoints
 export const habitAPI = {
   getAll: () => api.get("/habits"),
+  getStats: () => api.get("/habits/stats"),
   create: (data) => api.post("/habits", data),
   update: (id, data) => api.put(`/habits/${id}`, data),
   delete: (id) => api.delete(`/habits/${id}`),
