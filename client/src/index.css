@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #f4f6f8;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #333;
   min-height: 100vh;
 }
@@ -20,17 +20,175 @@ body {
 h1 {
   text-align: center;
   margin-bottom: 2rem;
+  color: #fff;
+  font-size: 2.5rem;
+}
+
+h2 {
   color: #2c3e50;
+  margin-bottom: 1rem;
 }
 
-ul {
-  list-style: none;
-}
-
-li {
+/* Habit Form */
+.habit-form {
   background: #fff;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.habit-form input,
+.habit-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.habit-form input:focus,
+.habit-form textarea:focus {
+  border-color: #667eea;
+}
+
+.habit-form textarea {
+  resize: vertical;
+}
+
+.habit-form button {
+  background: #667eea;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.habit-form button:hover:not(:disabled) {
+  background: #5568d3;
+}
+
+.habit-form button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* Habit List */
+.habit-list {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Habit Card */
+.habit-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #ccc;
+  transition: all 0.2s;
+}
+
+.habit-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.habit-card.completed {
+  border-left-color: #10b981;
+  background: #ecfdf5;
+}
+
+.habit-info h3 {
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.habit-info p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.habit-info small {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.habit-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.toggle-btn {
+  background: #fff;
+  border: 2px solid #667eea;
+  color: #667eea;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+  background: #667eea;
+  color: #fff;
+}
+
+.toggle-btn.done {
+  background: #10b981;
+  border-color: #10b981;
+  color: #fff;
+}
+
+.toggle-btn.done:hover {
+  background: #059669;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background: #fee2e2;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+/* Loader & Error */
+.loader,
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #fecaca;
 }

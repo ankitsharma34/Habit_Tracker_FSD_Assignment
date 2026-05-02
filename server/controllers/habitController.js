@@ -1,5 +1,16 @@
 import Habit from "../models/habitModel.js";
 
+// Helper: Check if two dates are the same day
+const isSameDay = (d1, d2) => {
+  const date1 = new Date(d1);
+  const date2 = new Date(d2);
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+};
+
 // @desc    Get all habits
 // @route   GET /api/habits
 export const getHabits = async (req, res, next) => {
@@ -16,10 +27,13 @@ export const getHabits = async (req, res, next) => {
 export const createHabit = async (req, res, next) => {
   try {
     const { title, description } = req.body;
-    if (!title) {
+    if (!title || title.trim() === "") {
       return res.status(400).json({ message: "Title is required" });
     }
-    const habit = await Habit.create({ title, description });
+    const habit = await Habit.create({
+      title: title.trim(),
+      description: description?.trim() || "",
+    });
     res.status(201).json(habit);
   } catch (error) {
     next(error);
@@ -48,6 +62,35 @@ export const deleteHabit = async (req, res, next) => {
     const habit = await Habit.findByIdAndDelete(req.params.id);
     if (!habit) return res.status(404).json({ message: "Habit not found" });
     res.status(200).json({ message: "Habit deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Toggle habit completion for today
+// @route   PATCH /api/habits/:id/toggle
+export const toggleHabitCompletion = async (req, res, next) => {
+  try {
+    const habit = await Habit.findById(req.params.id);
+    if (!habit) return res.status(404).json({ message: "Habit not found" });
+
+    const today = new Date();
+    const alreadyCompletedToday = habit.completedDates.some((date) =>
+      isSameDay(date, today),
+    );
+
+    if (alreadyCompletedToday) {
+      // Unmark — remove today's date
+      habit.completedDates = habit.completedDates.filter(
+        (date) => !isSameDay(date, today),
+      );
+    } else {
+      // Mark — add today's date
+      habit.completedDates.push(today);
+    }
+
+    await habit.save();
+    res.status(200).json(habit);
   } catch (error) {
     next(error);
   }
