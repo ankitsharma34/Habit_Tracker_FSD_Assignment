@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import habitRoutes from "./routes/habitRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Habit Tracker API is running 🎯" });
 });
 
+app.use("/api/auth", authRoutes);
 app.use("/api/habits", habitRoutes);
 
 // Error Handler (must be last)
@@ -34,3 +36,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+

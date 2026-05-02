@@ -64,6 +64,17 @@ const Home = () => {
     }
   };
 
+  const handleToggleDate = async (id, date) => {
+    try {
+      const { data } = await habitAPI.toggleDate(id, date);
+      setHabits(habits.map((h) => (h._id === id ? data : h)));
+      refreshStats();
+    } catch (err) {
+      console.error("Error toggling date:", err);
+      alert("Failed to update habit");
+    }
+  };
+
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this habit?")) return;
     try {
@@ -87,6 +98,7 @@ const Home = () => {
         habits={habits}
         onToggle={handleToggle}
         onDelete={handleDelete}
+        onToggleDate={handleToggleDate}
       />
     </div>
   );

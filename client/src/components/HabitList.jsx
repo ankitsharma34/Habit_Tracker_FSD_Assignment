@@ -1,6 +1,6 @@
 import HabitCard from "./HabitCard.jsx";
 
-const HabitList = ({ habits, onToggle, onDelete }) => {
+const HabitList = ({ habits, onToggle, onDelete, onToggleDate }) => {
   if (habits.length === 0) {
     return (
       <div className="empty-state">
@@ -18,6 +18,7 @@ const HabitList = ({ habits, onToggle, onDelete }) => {
           habit={habit}
           onToggle={onToggle}
           onDelete={onDelete}
+          onToggleDate={onToggleDate}
         />
       ))}
     </div>
