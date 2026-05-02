@@ -132,18 +132,18 @@ Base URL: `http://localhost:5000/api`
 
 The project is built incrementally over 6 iterations:
 
-| #   | Iteration                     | Description                                       | Status |
-| --- | ----------------------------- | ------------------------------------------------- | ------ |
-| 0   | Project Setup                 | Folder structure, MVC pattern, MongoDB connection | ✅     |
-| 1   | Add Habits + Daily Completion | CRUD operations, mark/unmark today                | ✅     |
-| 2   | Streak Counter                | Current streak, longest streak, stats dashboard   | ✅     |
-| 3   | Calendar View                 | Monthly calendar grid with click-to-toggle        | 🔜     |
-| 4   | User Authentication           | JWT-based signup/login, per-user habits           | 🔜     |
-| 5   | Progress Charts               | Weekly/monthly visualizations using Recharts      | 🔜     |
+| #   | Iteration                     | Description                                       | Status  |
+| --- | ----------------------------- | ------------------------------------------------- | ------- |
+| 0   | Project Setup                 | Folder structure, MVC pattern, MongoDB connection | Done    |
+| 1   | Add Habits + Daily Completion | CRUD operations, mark/unmark today                | Done    |
+| 2   | Streak Counter                | Current streak, longest streak, stats dashboard   | Done    |
+| 3   | Calendar View                 | Monthly calendar grid with click-to-toggle        | Pending |
+| 4   | User Authentication           | JWT-based signup/login, per-user habits           | Pending |
+| 5   | Progress Charts               | Weekly/monthly visualizations using Recharts      | Pending |
 
 ---
 
-## 👥 Team
+## Team
 
 | Name                   | Roll No.   | Responsibilities                               |
 | ---------------------- | ---------- | ---------------------------------------------- |
@@ -153,6 +153,6 @@ The project is built incrementally over 6 iterations:
 
 ---
 
-## 📜 License
+## License
 
 This project is built as part of a college assignment for educational purposes.
