@@ -14,6 +14,9 @@ const Navbar = () => {
         {user ? (
           <>
             <span className="navbar-user">👋 {user.name}</span>
+            <Link to="/dashboard" className="navbar-link">
+              📊 Dashboard
+            </Link>
             <button className="navbar-logout-btn" onClick={logout}>
               Logout
             </button>

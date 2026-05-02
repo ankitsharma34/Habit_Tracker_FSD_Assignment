@@ -22,6 +22,7 @@ export const habitAPI = {
   delete: (id) => api.delete(`/habits/${id}`),
   toggleComplete: (id) => api.patch(`/habits/${id}/toggle`),
   toggleDate: (id, date) => api.patch(`/habits/${id}/toggle-date`, { date }),
+  getAnalytics: () => api.get("/habits/analytics"),
 };
 
 export const authAPI = {

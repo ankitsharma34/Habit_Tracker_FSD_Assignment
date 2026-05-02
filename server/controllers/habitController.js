@@ -1,5 +1,6 @@
 import Habit from "../models/habitModel.js";
 import { calculateStreaks } from "../utils/streakCalculator.js";
+import { subDays, format, startOfDay, isSameDay as isSameDayFns } from "date-fns";
 
 // Helper: Check if two dates are the same day
 const isSameDay = (d1, d2) => {
@@ -196,6 +197,71 @@ export const getStats = async (req, res, next) => {
       completedToday,
       longestStreakOverall,
       totalCompletions,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get analytics data for charts
+// @route   GET /api/habits/analytics
+export const getAnalytics = async (req, res, next) => {
+  try {
+    const habits = await Habit.find({ user: req.user._id });
+    const habitsWithStreaks = habits.map(addStreakData);
+
+    const today = startOfDay(new Date());
+
+    // 1. Weekly Completion Bar Chart (Last 7 days)
+    const weeklyData = [];
+    for (let i = 6; i >= 0; i--) {
+      const day = subDays(today, i);
+      const dayName = format(day, "EEE");
+      let completions = 0;
+
+      habits.forEach((habit) => {
+        if (habit.completedDates.some((date) => isSameDayFns(startOfDay(new Date(date)), day))) {
+          completions++;
+        }
+      });
+
+      weeklyData.push({ day: dayName, completions });
+    }
+
+    // 2. Monthly Trend (Last 30 days)
+    const monthlyData = [];
+    for (let i = 29; i >= 0; i--) {
+      const day = subDays(today, i);
+      const dateStr = format(day, "MMM dd");
+      let completedCount = 0;
+
+      habits.forEach((habit) => {
+        if (habit.completedDates.some((date) => isSameDayFns(startOfDay(new Date(date)), day))) {
+          completedCount++;
+        }
+      });
+
+      const percentage = habits.length > 0 ? Math.round((completedCount / habits.length) * 100) : 0;
+      monthlyData.push({ date: dateStr, percentage });
+    }
+
+    // 3. Per-Habit Progress (Pie Chart)
+    const habitBreakdown = habits.map((habit) => ({
+      name: habit.title,
+      value: habit.completedDates.length,
+    }));
+
+    // 4. Streak Comparison (Bar Chart)
+    const streakData = habitsWithStreaks.map((h) => ({
+      name: h.title,
+      currentStreak: h.currentStreak || 0,
+    }));
+
+    res.status(200).json({
+      weeklyData,
+      monthlyData,
+      habitBreakdown,
+      streakData,
     });
   } catch (error) {
     next(error);
