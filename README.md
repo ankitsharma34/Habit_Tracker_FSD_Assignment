@@ -47,7 +47,7 @@ To build a web-based habit tracking application that helps users develop and mai
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/habit-tracker.git
+git clone https://github.com/ankitsharma34/Habit_Tracker_FSD_Assignment.git
 cd habit-tracker
 ```
 
@@ -132,24 +132,24 @@ Base URL: `http://localhost:5000/api`
 
 The project is built incrementally over 6 iterations:
 
-| #   | Iteration                     | Description                                       | Status  |
-| --- | ----------------------------- | ------------------------------------------------- | ------- |
-| 0   | Project Setup                 | Folder structure, MVC pattern, MongoDB connection | Done    |
-| 1   | Add Habits + Daily Completion | CRUD operations, mark/unmark today                | Done    |
-| 2   | Streak Counter                | Current streak, longest streak, stats dashboard   | Done    |
-| 3   | Calendar View                 | Monthly calendar grid with click-to-toggle        | Pending |
-| 4   | User Authentication           | JWT-based signup/login, per-user habits           | Pending |
-| 5   | Progress Charts               | Weekly/monthly visualizations using Recharts      | Pending |
+| #   | Iteration                     | Description                                       | Status |
+| --- | ----------------------------- | ------------------------------------------------- | ------ |
+| 0   | Project Setup                 | Folder structure, MVC pattern, MongoDB connection | Done   |
+| 1   | Add Habits + Daily Completion | CRUD operations, mark/unmark today                | Done   |
+| 2   | Streak Counter                | Current streak, longest streak, stats dashboard   | Done   |
+| 3   | Calendar View                 | Monthly calendar grid with click-to-toggle        | Done   |
+| 4   | User Authentication           | JWT-based signup/login, per-user habits           | Done   |
+| 5   | Progress Charts               | Weekly/monthly visualizations using Recharts      | Done   |
 
 ---
 
 ## Team
 
-| Name                   | Roll No.   | Responsibilities                               |
-| ---------------------- | ---------- | ---------------------------------------------- |
-| **Ankit Kumar Sharma** | 12311017   | Iteration 0, 1, 2 (Setup, CRUD, Streaks)       |
-| **[Member 2 Name]**    | 123110\_\_ | Iteration 3, 4 (Calendar View, Authentication) |
-| **[Member 3 Name]**    | 123110\_\_ | Iteration 5 (Progress Charts & Deployment)     |
+| Name                   | Roll No. | Responsibilities                               |
+| ---------------------- | -------- | ---------------------------------------------- |
+| **Ankit Kumar Sharma** | 12311017 | Iteration 0, 1, 2 (Setup, CRUD, Streaks)       |
+| **Ankush**             | 12311021 | Iteration 3, 4 (Calendar View, Authentication) |
+| **Harsh Raj**          | 12311033 | Iteration 5 (Progress Charts & Deployment)     |
 
 ---
 
